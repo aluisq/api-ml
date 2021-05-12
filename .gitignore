@@ -1,2 +1,2 @@
-drivenv/
-.env/
+/drivenv/
+.env
