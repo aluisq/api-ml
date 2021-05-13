@@ -12,11 +12,31 @@ from forms.userForm import UserForm
 from forms.updateUserForm import UpdateUser
 from dotenv import load_dotenv
 from bson.json_util import dumps
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()  # take environment variables from .env.
 
 # Instance  APP
 app = FastAPI()
+
+
+origins = [
+    "http://localhost:3000",
+]
+
+
+
+# add CORS
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 # Create Token
 @app.post("/token", response_model=Token)
@@ -73,3 +93,15 @@ async def delete_one_user_db(username: str, current_user: User = Depends(UserCon
         response = "You dont have permission to delete an user."
 
     return response
+
+#testeAPI
+
+@app.get('/teste')
+async def teste():
+
+    json = {
+        "meu teste" : "testando!",
+        "oto teste" : "eae?"
+    }
+
+    return json
