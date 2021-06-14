@@ -12,7 +12,7 @@ client = pymongo.MongoClient(path_mongo)
 db_transito = client.db.transito2021
 
 
-def dataset2021():
+def getDataset():
     data = []
 
     dataset = db_transito.find()

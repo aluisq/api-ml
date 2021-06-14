@@ -95,9 +95,9 @@ async def delete_one_user_db(username: str, current_user: User = Depends(UserCon
 @app.get('/transito/2021')
 async def get_register_2021(current_user: User = Depends(UserController.get_current_active_user)):
 
-    from services.datasetController2021 import dataset2021
+    from services.datasetController2021 import getDataset
 
-    teste = dataset2021()
+    teste = getDataset()
 
     return teste
 
@@ -108,6 +108,6 @@ async def teste():
 
     json = {
         "meu teste" : "testando!",
-        "oto teste" : "eae?"
+        "outro teste" : "?????"
     }
     return json
