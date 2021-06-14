@@ -6,8 +6,8 @@ from passlib.context import CryptContext
 from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi import Depends, HTTPException, status
-from .models.userModel import User, UserInDB
-from .models.tokenModel import TokenData
+from ..models.userModel import User, UserInDB
+from ..models.tokenModel import TokenData
 from dotenv import load_dotenv
 import pymongo
 from bson.json_util import dumps
@@ -85,7 +85,6 @@ class UserController():
         except JWTError:
             raise credentials_exception
 
-
         usernames = []
         list_user = []
 
@@ -93,7 +92,7 @@ class UserController():
             usernames.append(user['username'])
             list_user.append(user)
 
-        # Construindo datbase no formato do fastApi
+        # Construindo database no formato do fastApi
         database_user_mongo = dict(zip(usernames, list_user))
 
         user = UserController.get_user(
@@ -127,7 +126,6 @@ class UserController():
             "created_at":  data,
             "updated_at":  data
         }
-
         try:
 
             db_user.insert_one(userData)

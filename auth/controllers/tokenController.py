@@ -1,7 +1,7 @@
 import os
 from fastapi import HTTPException, status
 from dotenv import load_dotenv
-from auth.userController import UserController
+from .userController import UserController
 import pymongo
 from datetime import datetime, timedelta
 

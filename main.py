@@ -4,8 +4,8 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from datetime import datetime, timedelta
 from typing import Optional
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from auth.userController import UserController
-from auth.tokenController import TokenController
+from auth.controllers.userController import UserController
+from auth.controllers.tokenController import TokenController
 from auth.models.userModel import User
 from auth.models.tokenModel import Token
 from forms.userForm import UserForm
@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 from bson.json_util import dumps
 from fastapi.middleware.cors import CORSMiddleware
 
+
 load_dotenv()  # take environment variables from .env.
 
 # Instance  APP
@@ -21,10 +22,8 @@ app = FastAPI()
 
 
 origins = [
-    "http://localhost:3000",
+    "http://localhost:3000"
 ]
-
-
 
 # add CORS
 
@@ -35,8 +34,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
 
 # Create Token
 @app.post("/token", response_model=Token)
@@ -94,6 +91,16 @@ async def delete_one_user_db(username: str, current_user: User = Depends(UserCon
 
     return response
 
+
+@app.get('/transito/2021')
+async def get_register_2021(current_user: User = Depends(UserController.get_current_active_user)):
+
+    from services.datasetController2021 import dataset2021
+
+    teste = dataset2021()
+
+    return teste
+
 #testeAPI
 
 @app.get('/teste')
@@ -103,5 +110,4 @@ async def teste():
         "meu teste" : "testando!",
         "oto teste" : "eae?"
     }
-
     return json
